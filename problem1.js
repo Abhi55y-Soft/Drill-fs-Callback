@@ -1,7 +1,19 @@
 const fs = require('fs');
 
-const  problem1 = (cb) => {
-    fs.mkdir("./jsonFiles", cb);
+const  problem1 = () => {
+    fs.promises.mkdir("./jsonFiles")
+    .then((res)=> {
+        for (let i= 0; i< 9; i+=1){
+            let path = `jsonFiles/${i}.json`;
+            fs.promises.writeFile(path, "Data")
+            .then((res)=> {
+                fs.promises.unlink(path);
+            });  
+        }
+    })
+    .catch((err)=> {
+        console.log(err);
+    });
 }
 
 module.exports = problem1;
